@@ -62,6 +62,21 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 extern uint8_t tx_msg[];
+struct DBUS_Frame
+{
+  uint16_t CHN0;
+  uint16_t CHN1;
+  uint16_t CHN2;
+  uint16_t CHN3;
+  uint8_t s1;
+  uint8_t s2;
+  uint16_t mouseX;
+  uint16_t mouseY;
+  uint16_t mouseZ;
+  uint8_t mouseL;
+  uint8_t mouseR;
+  uint16_t key;
+};
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
