@@ -30,7 +30,7 @@ Remote::Remote(UART_HandleTypeDef *huart): huart_(huart), connect_(REMOTE_CONNEC
 void Remote::init()
 {
     HAL_UART_Transmit(&huart1,init_msg,sizeof(init_msg)-1,1000);
-    HAL_UARTEx_ReceiveToIdle_DMA(&huart1,(uint8_t*)rx_data_,RC_FRAME_LEN);//继续中断接收
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart3,(uint8_t*)rx_data_,RC_FRAME_LEN);//继续中断接收
 }
 // Reset RC data. 重置遥控器数据
 void Remote::reset() {
@@ -53,7 +53,7 @@ void Remote::rxMsgCheck(UART_HandleTypeDef *huart) {
         HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
         rxMsgCallback((uint8_t*)rx_data_);
 
-        HAL_UARTEx_ReceiveToIdle_DMA(&huart1,(uint8_t*)rx_data_,RC_FRAME_LEN);//继续中断接收
+        HAL_UARTEx_ReceiveToIdle_DMA(&huart3,(uint8_t*)rx_data_,RC_FRAME_LEN);//继续中断接收
     }
 }
 
