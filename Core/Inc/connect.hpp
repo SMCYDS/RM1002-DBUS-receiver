@@ -24,13 +24,17 @@ public:
       :  last_tick_(0), timeout_(timeout), freq_(0), is_connected_(false) {}
     // Check connect status. Return true-connected, false-unconnected
     // 检测连接状态
-    bool check(void) {
+    bool check() {
         if (HAL_GetTick() - last_tick_ > timeout_) {
             is_connected_ = false;
+            freq_ = 0;
         }
         return is_connected_;
     }
-    
+    int getfreq()
+    {
+        return freq_;
+    }
     // Refresh connect status(Commonly called in rx callback).
     // Return true-unconnected->connected, false-keep connected
     // 刷新连接状态(一般在接收回调函数调用)

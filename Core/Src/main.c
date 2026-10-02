@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "remote.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,8 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t tx_msg[] = "Robomaster 2027\r\n";
-uint8_t rx_msg[10];
+uint8_t tx_msg[]="Robomaster ON\n";
   uint32_t tick=0;
 
 /* USER CODE END PV */
@@ -97,10 +96,9 @@ int main(void)
   MX_TIM1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  Remote_Init();
   HAL_TIM_Base_Start_IT(&htim1);
   // HAL_UART_Receive_IT(&huart1,rx_msg,1);//继续中断接收(非DMA模式)
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart1,rx_msg,10);//继续中断接收(DMA模式)
-  HAL_UART_Transmit(&huart1,tx_msg,sizeof(tx_msg)-1,1000);
 
   /* USER CODE END 2 */
 
@@ -163,13 +161,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  if (htim==&htim1)
-  {
-    // HAL_UART_Transmit(&huart1,tx_msg,sizeof(tx_msg)-1,1000);
-  }
-}
+
 
 
 

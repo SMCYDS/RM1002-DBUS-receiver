@@ -8,13 +8,14 @@
  ******************************************************************************
  */
 #ifndef UART_REMOTE_H
-#define UART_REMOTE_H
 
-#include "connect.hpp"
+
 #include "usart.h"
 
+#ifdef __cplusplus
 constexpr uint16_t RC_RX_BUF_SIZE = 36u;
 constexpr uint16_t RC_FRAME_LEN = 18u;
+#include "connect.hpp"
 
 class Remote {
     enum class RCSwitchState_e {
@@ -51,9 +52,20 @@ public:
     void init(void);
     void reset(void);
     void rxMsgCallback(uint8_t* rx_data_);
-    void rxMsgCheck(UART_HandleTypeDef* huart) const;
+    void rxMsgCheck(UART_HandleTypeDef* huart) ;
     void handle(void);
+    void sendbackInfo(void);
     
 };
+extern Remote remote;
+
+extern "C" {
+#endif
+void Remote_Init(void);
+void Remote_Reset(void);
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif //UART_REMOTE_H
